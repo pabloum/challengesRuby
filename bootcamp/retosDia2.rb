@@ -24,13 +24,46 @@ def defaults(hash)
 end
 
 
-## Hola Maker,
-
 # Tu misión en este reto es definir dos funciones, una llamada maximo y otra minimo, que reciben un número variable de argumentos (números) y retornan el máximo y el mínimo respectivamente.
 
+def maximo(*arr)
+  arr.max
+end
+
+def minimo(*arr)
+  arr.min
+end
+
+# Tu misión en este reto es escribir un método que decida si una cadena de texto (string) es una placa de un vehículo o no.
+#
+# Las placas de un vehículo se componen de tres letras mayúsculas, seguidas de tres dígitos (p.e. AAA234, o UHJ765).
+# Instrucciones
+#
+# En el archivo solution.rb escribe un método llamado is_plate? que reciba un argumento llamado string, y retorne true si la cadena es una placa de un vehículo, o false de lo contrario.
+
+def is_plate?(placa)
+  # placa.scan(/M/).count # Cuenta cuántas letras M hay
+  # return false if /[[:lower:]]/.match(placa) != nil
+
+  letras = placa.scan(/[[:upper:]]/).count
+  numeros = placa.scan(/\d/).count
+
+  (letras == 3 && numeros == 3) ? (return true) : (return false)
+
+  # string =~ /^[A-Z]{3}[0-9]{3}$/  # manera sugerida 
+end
+
+#####################################################
+#####################################################
+#####################################################
 
 ## Pruebo las funciones
 puts create_hash(19,1800,85.5)
 
 vble = {hola: 1, bebe:2}
 puts defaults(vble)
+
+puts maximo(1,2,3,4,3,2,4,22,1,2,346,45,62,334,57,867856,2)
+puts minimo(1,2,3,4,19,4,5,64,6,2,3,0.1)
+
+puts is_plate?("MMB965")
