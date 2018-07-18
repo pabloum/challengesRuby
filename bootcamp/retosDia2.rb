@@ -50,8 +50,12 @@ def is_plate?(placa)
 
   (letras == 3 && numeros == 3) ? (return true) : (return false)
 
-  # string =~ /^[A-Z]{3}[0-9]{3}$/  # manera sugerida 
+  # string =~ /^[A-Z]{3}[0-9]{3}$/  # manera sugerida
 end
+
+
+
+
 
 #####################################################
 #####################################################
