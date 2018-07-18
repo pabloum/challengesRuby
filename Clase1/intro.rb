@@ -5,7 +5,7 @@
 ## Documentación oficial: ruby-doc.com
 ## Librería oficial
 
-p "Hola, señor usaurio. Ingrese por favor su nombre"
+puts "Hola, señor usaurio. Ingrese por favor su nombre"
 name = gets.chomp
 
-p "Hola, #{name}"
+puts "Hola, \"#{name}\""
