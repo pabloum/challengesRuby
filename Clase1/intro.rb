@@ -5,7 +5,8 @@
 ## Documentación oficial: ruby-doc.com
 ## Librería oficial
 
-puts "Hola, señor usaurio. Ingrese por favor su nombre"
-name = gets.chomp
+puts "Hola, señor usaurio. Ingrese dos numeros para sumar"
+x = gets.chomp.to_i
+y = gets.chomp.to_i
 
-puts "Hola, \"#{name}\""
+puts "Hola, la suma es \"#{x+y}\""
