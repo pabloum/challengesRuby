@@ -8,16 +8,28 @@ class Car
     @velocity = 0
   end
 
-  def accelerate(n=nil)
-    n == nil ?  @velocity += 1 : @velocity += n
+  def accelerate(n=1)
+    @velocity += n
   end
 
-  def brake(n=nil)
-    n == nil ?  @velocity -= 1 : @velocity -= n
+  def brake(n=1)
+    @velocity -= n
   end
 
 
 end
+
+class Bus < Car
+
+
+end
+
+bus = Bus.new
+puts "la velocidad del bus es #{bus.velocity}" # => 0
+
+
+
+
 
 car = Car.new
 puts "la velocidad del carro es #{car.velocity}" # => 0
