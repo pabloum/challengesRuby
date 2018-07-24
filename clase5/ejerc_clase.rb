@@ -68,8 +68,9 @@ class Telefono
     end
     if directorio.key?(nombre.to_sym)
       return true
+    else
+      return false
     end
-    false
   end
 
 end
