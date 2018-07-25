@@ -41,10 +41,11 @@ class Telefono
   end
 
   def colgar
-
-    @state = false  ## Termino mi llamada
-    @@finish = Time.now ## Guardo el tiempo de finalización de llamada
-    @@historia[@@llamada] << (@@finish - @@start) if defined? @@start ## Guardo en mi hash el tiempo de llamada si la llamada sí se ejecutó
+    if @state == true ## Hago sto si la llamada está activa
+      @@finish = Time.now ## Guardo el tiempo de finalización de llamada
+      @@historia[@@llamada] << (@@finish - @@start) ## Guardo en mi hash el tiempo de llamada si la llamada sí se ejecutó
+      @state = false  ## Termino mi llamada
+    end
   end
 
   def historiaLlamadas

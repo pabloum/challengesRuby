@@ -1,3 +1,5 @@
+require 'pry-nav'
+
 class Car
 
   # attr_accessor :velocity # Para evitar escribir siempre getters y setters
@@ -20,14 +22,32 @@ class Car
 end
 
 class Bus < Car
+  attr_reader :passengers
+  @@total_pasajeros = 0
 
+  def initialize(pasajeros)
+    @velocity = 0
+    @passengers = 0
+    @passengers += pasajeros if @passengers <= 15
+    @@total_pasajeros += @passengers
+  end
+  def agregar(pasajeros)
+     ((@passengers + pasajeros) <= 15) ? (@passengers += pasajeros) : (puts "El bus está lleno")
+     @@total_pasajeros += pasajeros
+     # puts @passengers
+  end
+  def self.total_pasajeros
+    @@total_pasajeros
+  end
 
 end
 
-bus = Bus.new
+bus = Bus.new(12)
 puts "la velocidad del bus es #{bus.velocity}" # => 0
 
-
+bus.agregar(2)
+binding.pry
+puts "El bus tiene #{bus.passengers} pasajeros"
 
 
 
