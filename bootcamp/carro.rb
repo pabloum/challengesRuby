@@ -1,20 +1,42 @@
-# -Un atributo de clase que acumule el numero total de pasajeros que se han subido en todos mis buses (todas las instancias)
-# - Un metodo de clase que le permita conocer el total de pasajeros que han subido a toda la clase.
-
-##Declare dos clases adicionales que hereden de la clase Bus, llamadas MicroBus y SuperBus
-
-# La clase MicroBus debe poder hacer todo lo q hace el Bus y ademas:
-#
-# - Al instanciarse recibe el un hash del tipo { nombre_ruta1: "6-9", nombre_ruta2: "9-12" ...}
-# - un metodo que reciba la hora y te diga la ruta en la que se encuentra.
-
-# La clase SuperBus debe poder hacer todo lo q hace el Bus y ademas:
-#
-# - Al instanciarse recibe el precio del ticket de viaje.
-# - Un metodo que retorne el dinero total acumulado por la instancia del SuperBus
-# - Un atributo y metodo de clase que retorne el total de dinero acumulado por todos las instancias de SuperBus
-
 require 'pry-nav'
+
+module Conexiones
+  class Gps
+    def ubicacion
+      latitud = rand(-85.0..85.0).round(2)       # "vertical"
+      longitud = rand(-180.0..180.0).round(2)    # "horizontal"
+      [latitud,longitud]
+    end
+  end
+
+  class Internet
+    def velocidad
+      rand(5.0..20.0).round(2)
+    end
+  end
+
+  class Television
+    def initialize(canales_disponibles)
+      @canales = canales_disponibles
+    end
+    def pelicula
+      peliculas = ["La naranja Mecánica","Rocky","El Padrino", "El Rey León"]
+      peliculas[rand(0...peliculas.length)]
+    end
+  end
+
+  class Clima
+    def pronostico(hora)
+      pronostico = {lluvia: [0,1,2,3,4,5,18,19,20] , soleado: [8,9,10,11,12,13,14], nublado: [6,7,15,16,17] , nieve: [21,22,23]}
+      estimado = "No se tienen datos suficientes"
+      pronostico.each do |k,v|
+        estimado = k if v.include?(hora)
+      end
+      estimado
+    end
+  end
+
+end
 
 class Car
   attr_reader :velocity
@@ -30,10 +52,11 @@ class Car
 end
 
 class Bus < Car
+  include Conexiones
   attr_reader :pasajeros
   @@pasajeros_acumulados = 0
 
-  def initialize(pasajeros_entran)
+  def initialize(pasajeros_entran=0)
     super()
     @pasajeros = 0
     @pasajeros += pasajeros_entran if pasajeros_entran <= 15
@@ -69,6 +92,7 @@ end
 
 
 class MicroBus < Bus
+  include Conexiones
   def initialize(nombresRutas,pasajeros)
     super(pasajeros)
     @nombres_rutas = nombresRutas
@@ -86,7 +110,7 @@ end
 
 
 class SuperBus < Bus
-
+  include Conexiones
   attr_reader :ganancia_bus
 
   @@ganancias_totales = 0
@@ -109,60 +133,45 @@ class SuperBus < Bus
   end
 
 end
+=begin
+Incluya el modulo Conexiones en la clase Bus y utilice los metodos en instancia de Bus, MicroBus y SuperBus.
+Prueben incluyendo Conexiones directamente en MicroBus y SuperBus.
+=end
 
+bus_prueba1 = Bus::Internet.new
+puts bus_prueba1.velocidad
 
+bus_prueba1 = MicroBus::Internet.new
+puts bus_prueba1.velocidad
 
-return ## pruebas
+bus_prueba1 = SuperBus::Internet.new
+puts bus_prueba1.velocidad
+
+bus_prueba = Bus.new(4)
+puts "El bus tiene #{bus_prueba.pasajeros} pasajeros"
+bus_prueba.agregar(5)
+puts "El bus tiene #{bus_prueba.pasajeros} pasajeros"
+bus_prueba.descargar(3)
+puts "El bus tiene #{bus_prueba.pasajeros} pasajeros"
+puts "El bus va a #{bus_prueba.velocity} km/h"
+bus_prueba.accelerate(5)
+puts "El bus va a #{bus_prueba.velocity} km/h"
+bus_prueba.brake(1)
+puts "El bus va a #{bus_prueba.velocity} km/h"
+puts "El bus tiene #{bus_prueba.pasajeros} pasajeros"
+puts "Los buses han transportado a #{Bus.pasajeros_acumulados} personas en todo su historial"
+
 
 micro = MicroBus.new({ santra316: (6..9), santra315: (9..12)},10)
-
 micro.ruta(10)
-
-# return
 
 superBus1 = SuperBus.new(1500,8)
 superBus1.agregar(4)
+puts "Las ganancias del super bus 1 son: #{superBus1.ganancia_bus}"
 
-superBus2 = SuperBus.new(1500,8)
-superBus2.agregar(4)
+puts "Las ganancias de toda la flota son #{SuperBus.ganancias_totales}"
 
-puts SuperBus.ganancias_totales
-puts superBus1.ganancia_bus
-
-puts SuperBus.ganancias_totales
-puts superBus2.ganancia_bus
-
-
-# return
-
-bus = Bus.new(12)
-puts "la velocidad del bus es #{bus.velocity}" # => 0
-
-bus.agregar(2)
-# binding.pry
-puts "El bus tiene #{bus.pasajeros} pasajeros"
-
-bus.descargar(8)
-puts "El bus tiene #{bus.pasajeros} pasajeros"
-
-bus.agregar(4)
-puts "El bus tiene #{bus.pasajeros} pasajeros"
-
-puts "El bus tiene #{Bus.pasajeros_acumulados} pasajeros en todo su historial"
-
-# return
-
-car = Car.new
-puts "la velocidad del carro es #{car.velocity}" # => 0
-
-car.accelerate
-puts "la velocidad del carro es #{car.velocity}"# => 1
-
-car.accelerate(2)
-puts "la velocidad del carro es #{car.velocity}" # => 3
-
-car.brake
-puts car.velocity # => 2
-
-car.brake(2)
-puts car.velocity # => 0
+superBus2 = SuperBus.new(1500,6)
+superBus2.agregar(7)
+puts "Las ganancias del super bus 1 son: #{superBus2.ganancia_bus}"
+puts "Las ganancias de toda la flota son #{SuperBus.ganancias_totales}"
