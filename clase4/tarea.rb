@@ -7,6 +7,7 @@ def importar(phones)
     @directorio[dir[i][0].to_sym] = ((dir[i][1]).split(" "))[0].to_i
   end
 end
+
 #
 # 2. Un método que permita imprimir todo los nombres y usuarios del directorio.
 #
