@@ -1,0 +1,14 @@
+
+      ¡¡BIENVENIDO AL RESTAURANTE EL BUEN COMER!!
+
+      ¿Qué desea hacer?
+
+          1 - Ver el Menú
+          2 - Hacer una orden
+          3 - Ver orden actual
+          4 - Agregar productos a su orden
+          5 - Consultar el total del pedido
+          6 - Pagar
+          7 - Ingresar nuevo cliente
+
+      Ingrese la opción que desee:

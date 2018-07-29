@@ -1,21 +1,17 @@
-# Incluyendo los modulos Menu, Ordenes, Caja una instancia de Restaurantes debe poder:
-
-#     Registrar una orden y agregar productos a la orden a partir de la disponibilidad del menu.
-#     Se debe poder pagar un pedido.
-
-# Escriba la interfaz (en un archivo aparte) desde lacual se correrá el programa.
+require_relative "modulos.rb"
 
 class Restaurante
     include Menu
     include Ordenes
     include Caja
 
+    @@clientes = 0
+
     def initialize
       cargar_menu
-    end
-
-    def pagar_pedido
-
+      @pago = false
+      @@clientes += 1
+      @cliente = "Cliente #{@@clientes}"
     end
 
 end
