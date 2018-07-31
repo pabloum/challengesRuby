@@ -13,13 +13,21 @@ module Gadgets
     end
   end
 
-  class Termometro (hora = Time.now.hour)
-    temp = rand(-10..10) if (0..6).include?(hora)
-    temp = rand(10..25) if (7..11).include?(hora)
-    temp = rand(25..32) if (12..15).include?(hora)
-    temp = rand(18..22) if (16..18).include?(hora)
-    temp = rand(10..18) if (19..23).include?(hora)
-    temp
+  class Termometro
+
+    def consulta_temperatura (hora = Time.now.hour)
+      @temp = rand(-10..10) if (0..6).include?(hora)
+      @temp = rand(10..25) if (7..11).include?(hora)
+      @temp = rand(25..32) if (12..15).include?(hora)
+      @temp = rand(18..22) if (16..18).include?(hora)
+      @temp = rand(10..18) if (19..23).include?(hora)
+      @temp
+    end
+
+    def mostrar_temperatura
+      consulta_temperatura
+      puts "La temperatura es #{@temp}°C"
+    end
   end
 
   class BlockDeNotas
@@ -37,9 +45,7 @@ module Gadgets
       @nota[linea_para_borrar-1] = " "
       File.open("bloc_notas.txt", 'w') { |file| file.puts("#{@nota.join(" ")}\n") }
     end
-
   end
-
 end
 
 class Telefono
@@ -175,8 +181,12 @@ end
 ###### PRUEBAS DE LOS MÉTDOS Y CLASES ###
 #########################################
 #########################################
+cell_test = CellPhone::Termometro.new
+cell_test.consulta_temperatura(3)
+cell_test.mostrar_temperatura
 
 
+return
 cell_test = CellPhone.new(3)
 sleep(3)
 cell_test = CellPhone::BlockDeNotas.new

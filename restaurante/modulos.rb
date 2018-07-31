@@ -45,59 +45,64 @@ end
 # Mostrar todas las ordenes en cola.
 
 module Ordenes
-    include Menu
-    @@ordenes_cola = []
+    # include Menu
+    class OrdenesClass
+      @@ordenes_cola = []
 
-    def crea_orden(new_order=nil)
-          @orden = []
-          existe = false
+      def initialize(menu)
+        @@menu = menu
+      end
 
-          @@menu.each do |i|
-              existe = i.include?(new_order)
-              break if existe
-          end
+      def crea_orden(new_order=nil)
+            @orden = []
+            existe = false
 
-          if (consulta_codigo(new_order)[2] == "true" && existe)
-              @orden << new_order
-              @@ordenes_cola << consulta_codigo(new_order)[0]
-          else
-              puts "No tenemos este producto disponible"
-          end
+            @@menu.each do |i|
+                existe = i.include?(new_order)
+                break if existe
+            end
+
+            if (consulta_codigo(new_order)[2] == "true" && existe)
+                @orden << new_order
+                @@ordenes_cola << consulta_codigo(new_order)[0]
+            else
+                puts "No tenemos este producto disponible"
+            end
+      end
+
+      def agregar_pedido(pedido="007")
+            existe = false
+            @@menu.each do |i|
+                existe = i.include?(pedido)
+                break if existe
+            end
+            if (consulta_codigo(pedido)[2] == "true" && existe)
+                @orden << pedido
+                @@ordenes_cola << consulta_codigo(pedido)[0]
+            else
+                puts "No tenemos este producto disponible"
+            end
+      end
+
+      def mostrar_orden
+            @orden.map { |i| consulta_codigo(i)[0]}
+      end
+
+      def total_orden
+            total = 0
+            if (@orden && @orden.size >0)
+                @orden.each do |i|
+                  total += consulta_codigo(i)[1].to_i # La posicion 1 del array que retorna consulta_codigo es el que tiene el precio (en string)
+                end
+            end
+            total
+      end
+
+      def self.ordenes_cola
+            puts "Los pedidos en cola son: "
+            puts "#{@@ordenes_cola} "
+      end
     end
-
-    def agregar_pedido(pedido="007")
-          existe = false
-          @@menu.each do |i|
-              existe = i.include?(pedido)
-              break if existe
-          end
-          if (consulta_codigo(pedido)[2] == "true" && existe)
-              @orden << pedido
-              @@ordenes_cola << consulta_codigo(pedido)[0]
-          else
-              puts "No tenemos este producto disponible"
-          end
-    end
-
-    def mostrar_orden
-          @orden.map { |i| consulta_codigo(i)[0]}
-    end
-
-    def total_orden
-          total = 0
-          if (@orden && @orden.size >0)
-              @orden.each do |i|
-                total += consulta_codigo(i)[1].to_i # La posicion 1 del array que retorna consulta_codigo es el que tiene el precio (en string)
-              end
-          end
-          total
-    end
-
-    def self.ordenes_cola
-          puts "Los pedidos en cola son: "
-          puts "#{@@ordenes_cola} "
-    end
-
 end
 
 # Pagar una orden

@@ -5,6 +5,8 @@ interfaz = File.read("interfazPrograma.txt")
 
 
 cliente = Restaurante.new
+
+
 while true
   puts interfaz
   op = gets.chomp.to_i
