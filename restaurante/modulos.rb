@@ -17,7 +17,7 @@ module Menu
         puts " "
     end
 
-    def agregar_producto(datos=["020","Perro","10000",true])
+    def agregar_producto(datos)
         codigo = datos[0]
         nombre = datos[1]
         precio = datos[2]
@@ -27,7 +27,7 @@ module Menu
         @@menu << [codigo,nombre,precio,dispo]
     end
 
-    def consulta_codigo(code = "001")
+    def consulta_codigo(code)
         nombre = precio = dispo = nil;
         @@menu.each do |i|
           if i[0] == code
@@ -45,15 +45,15 @@ end
 # Mostrar todas las ordenes en cola.
 
 module Ordenes
-    # include Menu
-    class OrdenesClass
+    include Menu
+    # class OrdenesClass
       @@ordenes_cola = []
 
-      def initialize(menu)
-        @@menu = menu
-      end
+      # def initialize(menu)
+      #   @@menu = menu
+      # end
 
-      def crea_orden(new_order=nil)
+      def crea_orden(new_order)
             @orden = []
             existe = false
 
@@ -70,7 +70,7 @@ module Ordenes
             end
       end
 
-      def agregar_pedido(pedido="007")
+      def agregar_pedido(pedido)
             existe = false
             @@menu.each do |i|
                 existe = i.include?(pedido)
@@ -102,7 +102,7 @@ module Ordenes
             puts "Los pedidos en cola son: "
             puts "#{@@ordenes_cola} "
       end
-    end
+    # end
 end
 
 # Pagar una orden
@@ -132,12 +132,12 @@ module Caja
     end
 end
 
-
-return
-Ordenes.ordenes_cola
-puts "En total se ha pagado $#{Caja.total_pagado}"
-Caja.detalle_ordenes
-
-return
-cliente1.mostrar_menu
-puts "El código 008 tiene los siguientes datos: #{a.consulta_codigo("008")}"
+#
+# return
+# Ordenes.ordenes_cola
+# puts "En total se ha pagado $#{Caja.total_pagado}"
+# Caja.detalle_ordenes
+#
+# return
+# cliente1.mostrar_menu
+# puts "El código 008 tiene los siguientes datos: #{a.consulta_codigo("008")}"

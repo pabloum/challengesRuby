@@ -10,14 +10,14 @@ class Restaurante
 
     def initialize
       menu = cargar_menu
-      @ordenes = OrdenesClass.new(menu)
+      # @ordenes = OrdenesClass.new(menu)
       @pago = false
       @@clientes += 1
       @cliente = "Cliente #{@@clientes}"
     end
 
-    def crea_orden
-      @ordenes.crea_orden
-    end
+    # def crea_orden
+    #   @ordenes.crea_orden
+    # end
 
 end
