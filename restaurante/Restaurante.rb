@@ -20,4 +20,6 @@ class Restaurante
     #   @ordenes.crea_orden
     # end
 
+    def
+
 end
