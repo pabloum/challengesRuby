@@ -79,6 +79,7 @@ class Telefono
       puts "El contacto #{nombre} no está en el directorio"
       print "\n" ## Para leer más fácil en la terminal
     end
+    @state
   end
 
   def mostrarLlamadaActual
